@@ -1,26 +1,110 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root{
+  --bg-1: #f8fafc;
+  --card: rgba(255,255,255,0.8);
+  --muted: #6b7280;
+  --accent-1: #375bf5;   /* deep blue */
+  --accent-2: #6f4eff;   /* indigo */
+  --glass: rgba(255,255,255,0.6);
+  --glass-border: rgba(15,23,42,0.04);
+  --shadow-md: 0 8px 30px rgba(15,23,42,0.08);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base */
+html,body,#__next { height: 100%; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-gradient-to-b from-[color:var(--bg-1)] to-white text-gray-800;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
+
+/* Container helper */
+.container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Card style used across app */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+/* Buttons */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 font-medium rounded-md transition;
+  padding: 0.55rem 0.9rem;
+}
+.btn-primary {
+  background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+  color: white;
+  box-shadow: 0 6px 18px rgba(79,70,229,0.16);
+}
+.btn-ghost {
+  @apply bg-white border border-gray-200 text-gray-700;
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  background: rgba(2,6,23,0.45);
+  backdrop-filter: blur(4px) saturate(120%);
+}
+
+/* Fancy input */
+.input {
+  @apply w-full px-3 py-2 rounded-md border border-gray-200 bg-white;
+  transition: box-shadow .18s, transform .12s;
+}
+.input:focus {
+  outline: none;
+  box-shadow: 0 6px 20px rgba(59,130,246,0.12);
+  transform: translateY(-1px);
+}
+
+/* Table */
+.table-row-hover:hover {
+  background: linear-gradient(90deg, rgba(99,102,241,0.03), rgba(99,102,241,0.02));
+}
+
+/* Tiny badges */
+.badge {
+  @apply inline-block text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700;
+}
+
+/* Empty state card */
+.empty-card {
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,250,255,0.95));
+  padding: 2.5rem;
+  border: 1px dashed rgba(99,102,241,0.07);
+}
+
+/* small helpers */
+.kicker { @apply text-sm font-semibold text-gray-500; }
+.h1 { @apply text-3xl font-extrabold text-slate-900; }
+
+/* Animations */
+@keyframes floaty {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+.floaty { animation: floaty 4s ease-in-out infinite; }
+
+/* Responsive tweaks */
+@media (min-width: 1024px) {
+  .container { max-width: 1180px; }
 }
